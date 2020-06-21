@@ -5,6 +5,10 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
 
+// INITIALIZATIONS
+//const app = express();
+require('./database');
+
 // SETTINGS
 app.set('port', process.env.PORT || 3000);  // If a default port (cloud services maybe), use it, else, 3000
 app.set('views', path.join(__dirname, 'views'));
