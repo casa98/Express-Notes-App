@@ -30,7 +30,7 @@ router.post('/notes/new-note', async (req, res)=>{    // Route in Server
             title,
             description
         });
-        
+
         // Save into the db:
         await newNote.save();
         
@@ -39,8 +39,9 @@ router.post('/notes/new-note', async (req, res)=>{    // Route in Server
     }
 });
 
-router.get('/notes', (req, res)=>{
-    res.send('Notes of a user from database');
+router.get('/notes', async (req, res)=>{
+    const notes = await Note.find().sort({date: 'desc'}).lean(); 
+    res.render('notes/all-notes', {notes});
 });
 
 

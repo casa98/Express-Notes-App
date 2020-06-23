@@ -7,7 +7,7 @@
     "dev": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Carlos Andrés Sánchez Agudelo",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
