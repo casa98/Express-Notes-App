@@ -4,6 +4,7 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 // INITIALIZATIONS
 require('./database');
@@ -32,9 +33,16 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+app.use(flash());
 
 
 // GLOBAL VARIABLES
+// I want that all view access flash messages, let's create a global variable
+app.use((req, res, next)=>{
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    next();
+});
 
 // ROUTES
 app.use(require('./routes/index'));

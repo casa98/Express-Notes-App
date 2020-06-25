@@ -33,6 +33,9 @@ router.post('/notes/new-note', async (req, res)=>{    // Route in Server
 
         // Save into the db:
         await newNote.save();
+
+        // Show a flash message
+        req.flash('success_msg', 'Note Added Successfully');
         
         // Now, redirect to another place (list of notes):
         res.redirect('/notes');
@@ -49,7 +52,7 @@ router.get('/notes/edit/:id', async (req, res)=>{
     res.render('notes/edit-note', {note});
 });
 
-// I ca use PUT method for the middleware I defined in 
+// I can use PUT method for the middleware I defined in 
 // index.js (_method) and for the configuration made
 // in the edit-note.hbs when sending data to server
 // and the hidden input in the same file.
@@ -59,11 +62,17 @@ router.put('/notes/edit-note/:id', async (req, res)=>{
         title,
         description
     });
+    
+    req.flash('success_msg', 'Note Updated Successfully');
+
     res.redirect('/notes');
 });
 
 router.delete('/notes/delete/:id', async (req, res)=>{
     await Note.findByIdAndDelete(req.params.id);
+
+    req.flash('success_msg', 'Note Deleted Successfully');
+
     res.redirect('/notes');
 });
 
