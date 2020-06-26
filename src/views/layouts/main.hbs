@@ -18,9 +18,11 @@
 </head>
 <body>
     
-    <p>Navigation</p>
+    <!-- Navigation -->
+    {{> navigation }}
 
-    <main class="container">
+
+    <main class="container p-4">
         {{> messages }} <!-- This is how a partial is added -->
         {{> errors}}
         {{{ body }}}

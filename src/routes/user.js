@@ -53,4 +53,8 @@ router.post('/users/signup', async (req, res)=>{
     }
 });
 
+router.get('/users/logout', (req, res)=>{
+    req.logOut();res.redirect('/');
+});
+
 module.exports = router;
