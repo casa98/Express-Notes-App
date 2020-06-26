@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const exphbs = require('express-handlebars');
+const handlebars = require('handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -19,6 +21,7 @@ app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
+    handlebars: allowInsecurePrototypeAccess(handlebars),
     extname: '.hbs'
     })
 );
@@ -50,6 +53,9 @@ app.use((req, res, next)=>{
     res.locals.error_msg = req.flash('error_msg');
     // Passport errors:
     res.locals.error = req.flash('error');
+
+    res.locals.user = req.user || null;     // Global var for user, if not authenticated, null
+
     next();
 });
 
