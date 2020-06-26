@@ -11,7 +11,7 @@ passport.use(new localStrategy({
         return done(null, false, {message: 'User not found'});  // To finish auth process
     }else{
         // User found, validate password:
-        const match = await User.matchPassword(password);
+        const match = await user.matchPasswords(password);
         if(match){
             return done(null, user);
         }else{
