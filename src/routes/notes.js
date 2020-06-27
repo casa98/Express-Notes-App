@@ -31,6 +31,7 @@ router.post('/notes/new-note', isAuthenticated, async (req, res)=>{    // Route 
             title,
             description
         });
+        newNote.user = req.user.id;
 
         // Save into the db:
         await newNote.save();
@@ -44,7 +45,7 @@ router.post('/notes/new-note', isAuthenticated, async (req, res)=>{    // Route 
 });
 
 router.get('/notes', isAuthenticated, async (req, res)=>{
-    const notes = await Note.find().sort({date: 'desc'}).lean(); 
+    const notes = await Note.find({user: req.user.id}).sort({date: 'desc'}).lean(); // Search filtering by userID
     res.render('notes/all-notes', {notes});
 });
 
